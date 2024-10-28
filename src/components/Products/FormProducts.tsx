@@ -6,7 +6,7 @@ import useModal from "@/hooks/useModal";
 import { Product, Variant } from "@/core/interfaces/purchase";
 import useProducts from "@/hooks/queries/use-products";
 import VariantForm from "./VariantForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import useCategory from "@/hooks/queries/use-category";
 import CategorySelect from "./CategorySelect";
@@ -74,8 +74,7 @@ categories:categoriesSelected.map((category:CategoryProps)=>category?.id)
     }
   };
 
-
-
+ 
   return (
     <form
       onSubmit={form.handleSubmit(onSubmit)}
@@ -141,33 +140,20 @@ categories:categoriesSelected.map((category:CategoryProps)=>category?.id)
             </span>
           )}
         </div>
-      <CategorySelect setCategories={(e:any)=>setCategoriesSelected(e)} categories={allCategories!} id="multiSelectCategory"/>
-{/* <h2 className="text-center text-white space-y-2">Variantes</h2>
+      <CategorySelect categoriesSelected={productSelected?.categories!} setCategories={(e:any)=>setCategoriesSelected(e)} categories={allCategories!} id="multiSelectCategory"/>
+<h2 className="text-center text-white space-y-2">Variantes</h2>
 <hr />
-        <button
-          onClick={() => setShowNewvariant(!showNewVarian)}
-          type="button"
-          className="h-9 w-full rounded bg-blue-600 text-lg text-white hover:bg-blue-700"
-        >
-          Nueva variante
-        </button>
-        {showNewVarian && (
-          <VariantForm  onSubmit={(e: any) => handleAddVariant(e)} />
-        )}
-      
-        <div className=" border-stroke px-6.5 py-4">
-          <h3 className="font-medium text-white text-center text-xs">Variantes del Producto</h3>
-          <div className="mt-4">
-  {variants.map((variant, index) => (
-    <div key={index} className="flex w-full justify-between items-center border-b space-y-4">
-      <p className="w-full space-x-4  ">
-        <strong>Color:</strong> {variant.color} | 
-        <strong> Tamaño:</strong> {variant.size} | 
-        <strong> Stock:</strong> {variant.stock}
-      </p>
+     
+        <div className=" border-stroke  w-full">
+          <div className=" space-y-2 w-full">
+  {productSelected?.variants.map((variant, index) => (
+    <div key={index} className="w-full relative  grid gap-4 grid-cols-3 border-b py-2 text-nowrap">
+      <div className=""><strong>Color:</strong> {variant.color}</div>
+      <div><strong>Tamaño:</strong> {variant.size}</div>
+      <div ><strong>Stock:</strong> {variant.stock}</div>
       <button
-        onClick={() => handleRemoveVariant(variant)}
-        className="ml-4 text-red-600 hover:text-red-800"
+        onClick={() => console.log('d')}
+        className="w-10 absolute text-red-600 right-0 hover:text-red-800"
       >
        <X/>  
       </button>
@@ -175,7 +161,7 @@ categories:categoriesSelected.map((category:CategoryProps)=>category?.id)
   ))}
 </div>
 
-        </div> */}
+        </div>
         <button
           disabled={isLoading}
           type="submit"

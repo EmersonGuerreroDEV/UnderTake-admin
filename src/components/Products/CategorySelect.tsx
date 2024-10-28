@@ -12,9 +12,10 @@ interface DropdownProps {
   id: string;
   categories: CategoryProps[];
   setCategories: (categories: CategoryProps[]) => void;
+  categoriesSelected: CategoryProps[];
 }
 
-const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories }) => {
+const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories, categoriesSelected }) => {
   const [options, setOptions] = useState<Option[]>([]);
   const [selected, setSelected] = useState<CategoryProps[]>([]);
   const [show, setShow] = useState(false);
@@ -28,8 +29,20 @@ const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories
       selected: false,
       category, // Almacena el objeto completo
     }));
+    //@ts-ignore
     setOptions(initialOptions);
   }, [categories]);
+
+  // Cargar las categorías seleccionadas desde categoriesSelected
+  useEffect(() => {
+    setSelected(categoriesSelected);
+    setOptions(prevOptions =>
+      prevOptions?.map(option => ({
+        ...option,
+        selected: categoriesSelected?.some(selectedCategory => selectedCategory.id === option.category.id),
+      }))
+    );
+  }, [categoriesSelected, categories]);
 
   const openDropdown = () => setShow(true);
 
@@ -73,7 +86,7 @@ const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories
       </label>
       <div>
         <div ref={triggerRef} onClick={openDropdown} className="cursor-pointer border rounded p-2">
-          {selected.length > 0 ? (
+          {selected?.length > 0 ? (
             selected.map(category => category.name).join(", ") // Muestra los nombres de las categorías seleccionadas
           ) : (
             <span className="text-gray-500">Select categories</span>

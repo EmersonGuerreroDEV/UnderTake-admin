@@ -1,7 +1,10 @@
 "use client";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import useAuth from "@/hooks/queries/use-auth";
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/core/providers/user-provider";
+import { Routes } from "@/core/config/routes";
 
 const SigninWithPassword: React.FC = () => {
   const { doSignIn, isLoadingSignIn } = useAuth();
@@ -9,6 +12,9 @@ const SigninWithPassword: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [remember, setRemember] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
+  const {user} = useContext(UserContext);
+const router = useRouter()
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,18 +31,24 @@ const SigninWithPassword: React.FC = () => {
     }
   };
 
+  useEffect(()=>{
+    if(user){
+      router.push(Routes.home)
+    }
+  })
+
   return (
     <form onSubmit={handleSubmit}>
       {error && <p className="text-red-500">{error}</p>}
 
       <div className="mb-4">
         <label htmlFor="email" className="mb-2.5 block font-medium text-dark dark:text-white">
-          Email
+         Correo electrónico
         </label>
         <div className="relative">
           <input
             type="email"
-            placeholder="Enter your email"
+            placeholder="Ingresa correo electrónico"
             name="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -48,13 +60,13 @@ const SigninWithPassword: React.FC = () => {
 
       <div className="mb-5">
         <label htmlFor="password" className="mb-2.5 block font-medium text-dark dark:text-white">
-          Password
+         Contraseña
         </label>
         <div className="relative">
           <input
             type="password"
             name="password"
-            placeholder="Enter your password"
+            placeholder="Ingresa contraseña"
             autoComplete="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -65,26 +77,12 @@ const SigninWithPassword: React.FC = () => {
       </div>
 
       <div className="mb-6 flex items-center justify-between gap-2 py-2">
-        <label htmlFor="remember" className="flex cursor-pointer select-none items-center font-satoshi text-base font-medium text-dark dark:text-white">
-          <input
-            type="checkbox"
-            name="remember"
-            id="remember"
-            checked={remember}
-            onChange={() => setRemember((prev) => !prev)}
-            className="peer sr-only"
-          />
-          <span className={`mr-2.5 inline-flex h-5.5 w-5.5 items-center justify-center rounded-md border border-stroke bg-white text-white text-opacity-0 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-opacity-100 dark:border-stroke-dark dark:bg-white/5`}>
-            {/* Checkbox SVG */}
-          </span>
-          Remember me
-        </label>
-
+        
         <Link
           href="/auth/forgot-password"
           className="select-none font-satoshi text-base font-medium text-dark underline duration-300 hover:text-primary dark:text-white dark:hover:text-primary"
         >
-          Forgot Password?
+          Olvidó su contraseña?
         </Link>
       </div>
 
@@ -94,7 +92,7 @@ const SigninWithPassword: React.FC = () => {
           disabled={isLoadingSignIn}
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
         >
-          {isLoadingSignIn ? "Signing In..." : "Sign In"}
+          {isLoadingSignIn ? "Iniciando sesión..." : "Iniciar sesión"}
         </button>
       </div>
     </form>

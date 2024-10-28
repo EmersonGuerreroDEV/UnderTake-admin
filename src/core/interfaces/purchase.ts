@@ -6,7 +6,7 @@ export interface Product {
   discount: number;
   variants: Variant[];
   brand: Brand;
-  categories: string[];
+  categories: Category[];
 }
 
 export interface Variant {
@@ -20,4 +20,10 @@ export interface Variant {
 interface Brand {
   id: number;
   name: string;
+}
+
+interface Category {
+  id: string,
+  name: string,
+  image: string
 }

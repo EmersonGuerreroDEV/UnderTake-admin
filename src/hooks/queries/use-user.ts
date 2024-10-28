@@ -19,7 +19,7 @@ const useUser = () => {
   });
 
   const handleLogout = () => {
-    setUser(null);
+    setUser(null);    
   };
 
 

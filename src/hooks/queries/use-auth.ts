@@ -8,6 +8,7 @@ import { UserContext } from '@/core/providers/user-provider';
 import AuthRepository from '@/core/repositories/auth-repository';
 import { LoginProps, RegisterProps } from '@/core/interfaces/auth';
 import { Routes } from '@/core/config/routes';
+import useLocalStorage from '../useLocalStorage';
 interface TokenProps {
   [key: string]: string;
 }
@@ -15,6 +16,7 @@ interface TokenProps {
 const useAuth = () => {
   const router = useRouter();
   const { refetch, handleLogout } = useContext(UserContext);
+  const [pageName, setPageName] = useLocalStorage("selectedMenu", "dashboard");
 
 
   const { isLoading: isLoadingSignIn, mutateAsync: doSignIn } = useMutation({
@@ -26,9 +28,11 @@ const useAuth = () => {
     try {
       const res = await doSignIn(form);
       if (res) {
-        Cookies.set('ssid', res.access_token, { expires: 7 });
-        refetch();
         router.push(Routes.home);
+        setPageName(Routes.home)
+        Cookies.set('ssid', res.access_token, { expires: 7 });
+       
+        refetch();
         return res;
       }
     } catch (err) {
@@ -43,7 +47,8 @@ const useAuth = () => {
   const signOut = () => {
     Cookies.remove('ssid');
     handleLogout();
-    router.push(Routes.home);
+    router.push(Routes.login);
+   
   };
 
   return {

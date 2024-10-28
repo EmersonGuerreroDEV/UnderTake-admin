@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import ChartThree from "../Charts/ChartThree";
 import ChartTwo from "../Charts/ChartTwo";
 import ChatCard from "../Chat/ChatCard";
@@ -7,8 +7,18 @@ import TableOne from "../Tables/TableOne";
 import MapOne from "../Maps/MapOne";
 import DataStatsOne from "@/components/DataStats/DataStatsOne";
 import ChartOne from "@/components/Charts/ChartOne";
+import { useRouter } from "next/navigation";
+import { UserContext } from "@/core/providers/user-provider";
+import { Routes } from "@/core/config/routes";
 
-const ECommerce: React.FC = () => {
+const ECommerce = () => {
+const {user} = useContext(UserContext);
+  const router = useRouter()
+  if(!user){
+    router.push(Routes.login)
+    return
+  } 
+
   return (
     <>
       <DataStatsOne />
