@@ -13,6 +13,7 @@ export interface UserProps {
   password: string;
   addresses: AddressUser[];
   id: string;
+  role:string
 }
 
 export interface AddressUser {
