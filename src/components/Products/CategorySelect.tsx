@@ -5,7 +5,7 @@ interface Option {
   value: string;
   text: string;
   selected: boolean;
-  category: CategoryProps; // Almacena el objeto de categoría completo
+  category: CategoryProps; 
 }
 
 interface DropdownProps {
@@ -56,10 +56,18 @@ const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories
     );
 
     setSelected(prevSelected => {
-      if (prevSelected.find(item => item.id === category.id)) {
-        return prevSelected.filter(item => item.id !== category.id); // Deseleccionar
+      if (!Array.isArray(prevSelected)) {
+        return [category]; // Si prevSelected no es un arreglo, inicializa con la categoría
+      }
+
+      const isSelected = prevSelected.find(item => item.id === category.id);
+
+      if (isSelected) {
+        // Si ya está seleccionada, la eliminamos
+        return prevSelected.filter(item => item.id !== category.id);
       } else {
-        return [...prevSelected, category]; // Seleccionar
+        // Si no está seleccionada, la agregamos
+        return [...prevSelected, category];
       }
     });
   };
@@ -82,7 +90,7 @@ const CategorySelect: React.FC<DropdownProps> = ({ id, categories, setCategories
   return (
     <div className="relative z-50">
       <label className="mb-3 block text-body-sm font-medium text-dark dark:text-white">
-        Multiselect Dropdown
+       Selecciona Categoría
       </label>
       <div>
         <div ref={triggerRef} onClick={openDropdown} className="cursor-pointer border rounded p-2">

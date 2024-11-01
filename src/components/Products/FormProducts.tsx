@@ -143,7 +143,7 @@ categories:categoriesSelected.map((category:CategoryProps)=>category?.id)
       <CategorySelect categoriesSelected={productSelected?.categories!} setCategories={(e:any)=>setCategoriesSelected(e)} categories={allCategories!} id="multiSelectCategory"/>
 <h2 className="text-center text-white space-y-2">Variantes</h2>
 <hr />
-     
+
         <div className=" border-stroke  w-full">
           <div className=" space-y-2 w-full">
   {productSelected?.variants.map((variant, index) => (
@@ -162,13 +162,26 @@ categories:categoriesSelected.map((category:CategoryProps)=>category?.id)
 </div>
 
         </div>
-        <button
+        {
+          isLoading ?
+          
+          <button
           disabled={isLoading}
           type="submit"
           className="h-9 w-full rounded bg-blue-600 text-lg text-white hover:bg-blue-700"
         >
-          {productSelected ? "Actualizar" : "Registrar"}
+         Guardando
         </button>
+          :
+            <button
+          disabled={isLoading}
+          type="submit"
+          className="h-9 w-full rounded bg-blue-600 text-lg text-white hover:bg-blue-700"
+        >
+          {productSelected ?  "Actualizar" :"Registrar"}
+        </button>
+        }
+       
       </div>
     </form>
   );
