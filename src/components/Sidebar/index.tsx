@@ -17,7 +17,7 @@ interface SidebarProps {
 
 const menuGroups = (userRole: string) => [
   {
-    name: "MAIN MENU",
+    name: "MENU",
     menuItems: [
       {
         icon: (
