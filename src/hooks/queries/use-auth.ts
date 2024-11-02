@@ -15,7 +15,7 @@ interface TokenProps {
 
 const useAuth = () => {
   const router = useRouter();
-  const { refetch, handleLogout } = useContext(UserContext);
+  const { refetch, handleLogout,setUser } = useContext(UserContext);
   const [pageName, setPageName] = useLocalStorage("selectedMenu", "dashboard");
 
 
@@ -29,7 +29,8 @@ const useAuth = () => {
       const res = await doSignIn(form);
       if (res) {
         router.push(Routes.home);
-        setPageName(Routes.home)
+        setPageName(Routes.home);
+        setUser(res.user)
         Cookies.set('ssid', res.access_token, { expires: 7 });
        
         refetch();

@@ -75,10 +75,10 @@ const {signOut} = useAuth();
 
             <span className="block">
               <span className="block font-medium text-dark dark:text-white">
-                Jhon Smith
+               {user?.fullName}
               </span>
               <span className="block font-medium text-dark-5 dark:text-dark-6">
-                jonson@nextadmin.com
+                {user?.email}
               </span>
             </span>
           </div>

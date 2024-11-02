@@ -27,7 +27,7 @@ const header = async ({
     method
   };
 
-  const apiUrl = IS_DEV ? 'https://m6w9f78k-4000.use2.devtunnels.ms' : API_URL;
+  const apiUrl = IS_DEV ? 'https://undertake.hiboxco.store' : API_URL;
 
   let ssId = Cookies.get('ssid');
   options.url = `${apiUrl}${removeParamsIfNull(path)}`;

@@ -11,7 +11,7 @@ export default function DefaultLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const {user} = useContext(UserContext)
-  console.log(user)
+
   return (
     <>
       {/* <!-- ===== Page Wrapper Star ===== --> */}
