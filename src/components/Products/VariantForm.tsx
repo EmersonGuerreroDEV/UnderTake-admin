@@ -86,9 +86,9 @@ const VariantForm: React.FC<VariantFormProps> = ({ product, onClose }) => {
               Talla
             </label>
             <input
-              type="text"
+              type="color"
               {...form.register("size")}
-              className={`w-full rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3  outline-none transition focus:border-primary ${form.formState.errors.size ? "border-red-600" : ""}`}
+              className={`w-full h-12 rounded-[7px] border-[1.5px] border-stroke bg-transparent px-5.5 py-3  outline-none transition focus:border-primary ${form.formState.errors.size ? "border-red-600" : ""}`}
             />
             {form.formState.errors.size && (
               <span className="text-red-600">

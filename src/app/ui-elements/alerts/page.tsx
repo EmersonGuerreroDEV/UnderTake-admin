@@ -5,11 +5,7 @@ import AlertError from "@/components/Alerts/AlertError";
 import AlertWarning from "@/components/Alerts/AlertWarning";
 import AlertSuccess from "@/components/Alerts/AlertSuccess";
 
-export const metadata: Metadata = {
-  title: "Next.js Alerts Page | NextAdmin - Next.js Dashboard Kit",
-  description: "This is Next.js Alerts page for NextAdmin Dashboard Kit",
-  // other metadata
-};
+
 
 const Alerts = () => {
   return (
